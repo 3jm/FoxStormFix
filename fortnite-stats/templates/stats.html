@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortnite Stats</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold mb-4">{{ stats.data.account.name }}'s Fortnite Stats</h1>
+
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-2">Battle Pass</h2>
+            <div class="flex items-center">
+                <div class="mr-2">
+                    <i class="fa fa-star text-yellow-500"></i>
+                </div>
+                <div>
+                    <p class="font-bold">Level: {{ "{:,}".format(stats.data.battlePass.level) }}</p>
+                    <p class="font-bold">Progress: {{ stats.data.battlePass.progress }}%</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-panels">
+            <div id="overall-stats-tab" role="tabpanel" aria-labelledby="overall-tab" class="visible">
+                <h3 class="text-2xl font-bold mb-2">Overall Stats</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-tachometer text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Kills</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.overall.kills) }}</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-trophy text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Wins</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.overall.wins) }}</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-gamepad text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Matches</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.overall.matches) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div id="solo-tab" role="tabpanel" aria-labelledby="solo-tab">
+                <h3 class="text-2xl font-bold mb-2">Solo Stats</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-tachometer text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Kills</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.solo.kills) }}</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-trophy text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Wins</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.solo.wins) }}</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-gamepad text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Matches</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.solo.matches) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div id="duo-tab" role="tabpanel" aria-labelledby="duo-tab">
+                <h3 class="text-2xl font-bold mb-2">Duo Stats</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-tachometer text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Kills</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.duo.kills) }}</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-trophy text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Wins</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.duo.wins) }}</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-gamepad text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Matches</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.duo.matches) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div id="squad-tab" role="tabpanel" aria-labelledby="squad-tab">
+                <h3 class="text-2xl font-bold mb-2">Squad Stats</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-tachometer text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Kills</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.squad.kills) }}</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-trophy text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Wins</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.squad.wins) }}</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-gamepad text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Matches</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.squad.matches) }}</p>
+                    </div>
+                </div>
+            </div>
+            <div id="ltm-tab" role="tabpanel" aria-labelledby="ltm-tab">
+                <h3 class="text-2xl font-bold mb-2">LTMs Stats</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-tachometer text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Kills</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.ltm.kills) }}</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-trophy text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Wins</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.ltm.wins) }}</p>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded shadow">
+                        <i class="fa fa-gamepad text-yellow-500 text-4xl"></i>
+                        <h4 class="text-xl font-bold mb-2">Matches</h4>
+                        <p>{{ "{:,}".format(stats.data.stats.all.ltm.matches) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

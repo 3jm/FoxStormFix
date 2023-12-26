@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortnite Stats</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 h-screen flex items-center justify-center">
+    <div class="bg-gray-800 p-8 rounded shadow-lg w-96 text-center">
+        <h1 class="text-3xl text-white mb-4">Fortnite Stats</h1>
+
+        <style>
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+    
+            .lds-ring {
+                margin-top: 50px;
+                display: inline-block;
+                position: relative;
+                width: 80px;
+                height: 80px;
+                top: 50%;  
+                left: 50%;  
+                transform: translate(-50%, -50%); 
+            }
+    
+            .lds-ring div {
+                box-sizing: border-box;
+                display: block;
+                position: absolute;
+                width: 64px;
+                height: 64px;
+                margin: 8px;
+                border: 8px solid #fff;
+                border-radius: 50%;
+                animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+                border-color: #fff transparent transparent transparent;
+            }
+        </style>
+
+        <div id="usernamePrompt">
+            <label for="username" class="block text-gray-300 mb-2">Enter Fortnite username:</label>
+            <input type="text" id="usernameInput" placeholder="Username" class="w-full py-2 px-3 mb-4 border rounded">
+            <button onclick="fetchFortniteStats()" id="submitButton" class="bg-green-500 text-white py-2 px-4 rounded cursor-pointer">Get Stats</button>
+            <div id="loadingIcon" style="display: none;" class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </div>
+
+        <div id="statsContainer" class="mt-8 text-left text-gray-300">
+        </div>
+    </div>
+
+    <script>
+        async function fetchFortniteStats() {
+        document.getElementById('submitButton').disabled = true;
+        document.getElementById('loadingIcon').style.display = 'block';
+        const username = document.getElementById('usernameInput').value;
+
+        try {
+            const response = await fetch('http://localhost:5000/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username })
+            });
+
+            if (response.ok) {
+                const contentType = response.headers.get('content-type');
+                if (contentType.includes('text/html')) {
+                    window.location.href = response.url; 
+                } else {
+                    const responseData = await response.json();
+                    displayStats(responseData);
+                }
+            } else if (response.status === 302) {
+                window.location.href = response.url;  
+            } else {
+                alert('Error fetching Fortnite stats');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Error fetching Fortnite stats');
+        } finally {
+            document.getElementById('submitButton').disabled = false;
+            document.getElementById('loadingIcon').style.display = 'none';
+        }
+    }
+
+    
+        function displayStats(stats) {
+            const statsContainer = document.getElementById('statsContainer');
+            statsContainer.innerHTML = '';
+    
+            for (const [category, category_stats] of Object.entries(stats)) {
+                statsContainer.innerHTML += `<h2>${category}</h2>`;
+                if (category_stats && Object.keys(category_stats).length > 0) {
+                    statsContainer.innerHTML += '<ul>';
+                    for (const [stat_key, stat_value] of Object.entries(category_stats)) {
+                        statsContainer.innerHTML += `<li><strong>${stat_key}:</strong> ${stat_value}</li>`;
+                    }
+                    statsContainer.innerHTML += '</ul>';
+                } else {
+                    statsContainer.innerHTML += '<p>No stats available for this category.</p>';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
